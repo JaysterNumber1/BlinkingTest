@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     public string tags;
     public int quantity;
 
+
     public void Remove(int amount)
     {
         quantity -= amount;
