@@ -11,6 +11,10 @@ public class Item : MonoBehaviour
     public string tags;
     public int quantity;
 
+    public void Start()
+    {
+        this.name = names;
+    }
 
     public void Remove(int amount)
     {

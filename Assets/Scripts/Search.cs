@@ -14,7 +14,9 @@ public class Search : MonoBehaviour
     private string[] list;
     private GameObject currentItem;
 
+    [SerializeField]
     public NavMeshAgent agent;
+    [SerializeField]
     public LineRenderer line;
     
     
@@ -58,23 +60,35 @@ public class Search : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentItem != null)
+        if (currentItem != null )
         {
             cam.transform.LookAt(currentItem.transform);
         }
         if(Vector3.Distance(agent.destination, transform.position) <= agent.stoppingDistance)
         {
             line.positionCount = 0;
+            
+
         }
         else if (agent.hasPath)
         {
             DrawPath();
+           
         }
     }
    
-    private void AutoFill()
+    public void AutoFill()
     {
-
+       
+        for (int i = 0; i < list.Length; i++)
+        {
+           
+            if (list[i].StartsWith(input.text))
+            {
+                //AutoFillButtons.ReplaceButtons(list[i]);
+            }
+            
+        }
     }
 
     public void EndEdit()
@@ -121,9 +135,9 @@ public class Search : MonoBehaviour
 
     private void DrawPath()
     {
-        line.positionCount = agent.path.corners.Length;
+        line.positionCount = agent.path.corners.Length+1;
         line.SetPosition(0, transform.position);
-
+        
         if (agent.path.corners.Length < 2)
         {
             return;
@@ -131,10 +145,18 @@ public class Search : MonoBehaviour
 
         for(int i = 1; i < agent.path.corners.Length; i++)
         {
-            Vector3 pointPosition = new Vector3(agent.path.corners[i].x, (currentItem.transform.position.y)*(i+1)/agent.path.corners.Length, agent.path.corners[i].z);
-            line.SetPosition(i, pointPosition);
+          
+            
+                Vector3 pointPosition = new Vector3(agent.path.corners[i].x, (currentItem.transform.position.y) * (i + 1) / agent.path.corners.Length, agent.path.corners[i].z);
+                line.SetPosition(i, pointPosition);
+            
+           
         }
+        line.SetPosition(agent.path.corners.Length, currentItem.transform.position);
+        
+
+
     }
 
-   
+
 }
