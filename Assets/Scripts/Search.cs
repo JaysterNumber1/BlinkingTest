@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
@@ -11,13 +12,17 @@ using UnityEngine.UI;
 public class Search : MonoBehaviour
 {
     private GameObject[] database;
-    private string[] list;
+    public string[] list;
+    public List<string> sublist;
+    
     private GameObject currentItem;
 
     [SerializeField]
     public NavMeshAgent agent;
     [SerializeField]
     public LineRenderer line;
+    [SerializeField]
+    public AutoFillButtons autoFill;
     
     
     [SerializeField]
@@ -39,8 +44,10 @@ public class Search : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         line = GetComponent<LineRenderer>();
+        autoFill = GetComponent<AutoFillButtons>();
         
         database = GameObject.FindGameObjectsWithTag("Medicine");
+        
         list = new string[database.Length];
         for (int i = 0;i < database.Length; i++)
         {
@@ -50,6 +57,8 @@ public class Search : MonoBehaviour
             
 
         }
+        //Array.Sort(list);
+        
 
         line.startWidth = .15f;
         line.endWidth = .15f;
@@ -79,16 +88,21 @@ public class Search : MonoBehaviour
    
     public void AutoFill()
     {
+        int cap = 0;
        
         for (int i = 0; i < list.Length; i++)
         {
-           
-            if (list[i].StartsWith(input.text))
+
+            if (list[i].StartsWith(input.text) && !input.text.Equals("")&&cap<5)
             {
-                //AutoFillButtons.ReplaceButtons(list[i]);
+                sublist.Add(list[i]);
+                cap++;
             }
             
         }
+        autoFill.NukeEm();
+        autoFill.AddList(sublist);
+        sublist.Clear();
     }
 
     public void EndEdit()
