@@ -28,7 +28,7 @@ public class ExampleSceneManagerController : MonoBehaviour
 
     public void Load()
     {
-        QuickSaveReader.Create("Inputs")
+        QuickSaveReader.Create("Information")
                        .Read<string>("Input1", (r) => { Input5.text = r; })
                        .Read<string>("Input2", (r) => { Input6.text = r; })
                        .Read<string>("Input3", (r) => { Input7.text = r; })

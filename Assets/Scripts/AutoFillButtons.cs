@@ -45,7 +45,7 @@ public class AutoFillButtons : MonoBehaviour
     }
     public void NukeEm()
     {
-        Debug.Log("NUKE 'EM ");
+        
         for (int i = buttons.Count-1; i >=0; i--)
 
           

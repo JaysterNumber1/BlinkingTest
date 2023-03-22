@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Search : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class Search : MonoBehaviour
     
     
     [SerializeField]
-    private TMP_InputField input;
+    public TMP_InputField input;
     [SerializeField]
     private GameObject item;
     [SerializeField]
@@ -113,13 +115,22 @@ public class Search : MonoBehaviour
             int v = Array.IndexOf(list, input.text);
             item = database[v];
             Locate(item);
+            autoFill.NukeEm();
+
+
         }
         else if (previousItem != null)
         {
             ClearLast(previousItem);
+           
         }
+        
        
+
     }
+
+    
+
 
     private void Locate(GameObject goal)
     {
