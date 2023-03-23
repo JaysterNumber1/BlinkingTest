@@ -37,9 +37,9 @@ public class Move : MonoBehaviour
         player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
 
         h += horizontalSpeed* Input.GetAxis("Mouse X");
-         v -= verticalSpeed* Input.GetAxis("Mouse Y");
+        v -= verticalSpeed* Input.GetAxis("Mouse Y");
 
-      
+                
 
         cam.transform.eulerAngles = new Vector3(Mathf.Clamp(cam.transform.rotation.x+v, -50, 50), cam.transform.rotation.y+h, 0f);
 
