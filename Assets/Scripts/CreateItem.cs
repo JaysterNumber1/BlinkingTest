@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,24 +27,9 @@ public class CreateItem : MonoBehaviour
 
         done = true;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && done)
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, 100f))
-            {
-                posHit = hit.point;
-
-                StartCoroutine(NewItem());
-
-            }
-
-        }
+        StartCoroutine(NewItem());
     }
 
     private IEnumerator NewItem()
@@ -55,6 +41,12 @@ public class CreateItem : MonoBehaviour
         width = height = depth = 0f;
 
         done = false;
+
+        //createdShape.transform.localScale = new Vector3(width, height, depth);
+
+
+        
+    
         while (!done)
         {
 
@@ -129,8 +121,10 @@ public class CreateItem : MonoBehaviour
            
         }
 
+        
+
         createdShape.transform.position = new Vector3(createdShape.transform.position.x + width/2, createdShape.transform.position.y + height/2, createdShape.transform.position.z + depth/2);
-       
+
         OnFinished();
         ffc._active = true;
 
