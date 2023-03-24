@@ -16,7 +16,7 @@ public class BuildBox : MonoBehaviour
     {
        createdShape = Instantiate(box, this.transform.position, parent.transform.rotation, parent.transform);
        createdShape.transform.localScale = new Vector3(depth, height, width);
-       createdShape.transform.localPosition = new Vector3(-depth/4, createdShape.transform.localPosition.y + height / 2, createdShape.transform.localPosition.z);
+       createdShape.transform.localPosition = new Vector3(0, createdShape.transform.localPosition.y + height / 2, createdShape.transform.localPosition.z);
         createdShape.GetComponent<Item>().name= "Itemplaceholder";
        Destroy(this.gameObject);
     } 
