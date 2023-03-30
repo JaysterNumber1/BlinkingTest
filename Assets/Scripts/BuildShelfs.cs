@@ -15,14 +15,19 @@ public class BuildShelfs : MonoBehaviour
     public float defHeight = 50;
     public float shelfThickness = 2;
     public int shelfNumber = 4;
+    public string shelfName;
+    public TMP_InputField shelfNameInput;
     public TMP_InputField widthInput;
     public TMP_InputField depthInput;
+    public TMP_InputField shelfNumberInput;
     // public bool doubleSidded = false; // not used yet
 
     private void Start()
     {
         widthInput.text = width.ToString();
         depthInput.text = depth.ToString();
+        shelfNumberInput.text = shelfNumber.ToString();
+        BuildShelf();
 
     }
     public void BuildShelf()
@@ -30,9 +35,21 @@ public class BuildShelfs : MonoBehaviour
         DestroyShelf();
         for (int i = 0; i < shelfNumber; i++)
         {
+
             GameObject shelf = Instantiate(basicShelf, this.transform.position, shelfParent.transform.rotation, shelfParent.transform);
-            shelf.transform.localScale = new Vector3(depth, shelfThickness, width);
-            shelf.transform.localPosition = new Vector3(0, shelf.transform.localPosition.y + defHeight * i, shelf.transform.localPosition.z);
+            shelf.transform.localScale = new Vector3(depth/100, shelfThickness/100, width / 100);
+            if (shelfNumber > 1)
+            {
+                shelf.transform.localPosition = new Vector3(0, shelf.transform.localPosition.y + ((defHeight / (shelfNumber - 1)) * i) / 100, shelf.transform.localPosition.z);
+            }else if (shelfNumber < 1)
+            {
+                Debug.Log("Yo no work");
+            }
+            else
+            {
+                shelf.transform.localPosition = new Vector3(0, 0, shelf.transform.localPosition.z);
+            }
+
 
             shelf.name = "shelf" + i;
 
@@ -57,5 +74,13 @@ public class BuildShelfs : MonoBehaviour
     public void EditShelfDepth()
     {
         depth = float.Parse(depthInput.text);
+    }
+    public void EditShelfNumber()
+    {
+        shelfNumber = int.Parse(shelfNumberInput.text);
+    }
+    public void EditShelfName()
+    {
+        shelfName = shelfNameInput.text;
     }
 }
