@@ -12,16 +12,22 @@ public class SceneManaging : MonoBehaviour
     [SerializeField]
     private string find;
 
+
+    //Establish the scene names in scripts
      void Start()
     {
         menu = "MainMenu";
         build = "BuildScene";
         find = "FindScene";
     }
+
+    //Close the Application
     public void onQuit()
     {
         Application.Quit();
     }
+
+    //Load the "FindScene"
     public void onFind()
     {
         DontDestroyOnLoad(this);
@@ -30,6 +36,7 @@ public class SceneManaging : MonoBehaviour
 
     }
 
+    //Load the "BuildScene"
     public void onBuild()
     {
         DontDestroyOnLoad(this);
@@ -38,6 +45,7 @@ public class SceneManaging : MonoBehaviour
 
     }
 
+    //Load the "MainMenu"
     public void onMenu()
     {
         DontDestroyOnLoad(this);
@@ -45,6 +53,8 @@ public class SceneManaging : MonoBehaviour
         OnSceneLoad();
 
     }
+
+    //If a duplicate SceneManager is made, destroy
     public void OnSceneLoad()
     {
         if (GameObject.FindGameObjectsWithTag("SceneManager").Length>1)

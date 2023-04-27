@@ -8,8 +8,8 @@ public class Button : MonoBehaviour
     private Button button;
     [SerializeField]
     private Search search;
-
-    // Start is called before the first frame update
+    
+    // Establish the button and search scripts
     public void Start()
     {
         button= GetComponent<Button>();
@@ -17,8 +17,8 @@ public class Button : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-
+    
+    //On Click, autofill the input field to the button name
     public void OnClick()
     {
         

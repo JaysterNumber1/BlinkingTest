@@ -44,24 +44,26 @@ public class Search : MonoBehaviour
    
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        line = GetComponent<LineRenderer>();
-        autoFill = GetComponent<AutoFillButtons>();
+
+
+        agent = GetComponent<NavMeshAgent>(); //assign the NavMeshAgent attached to this GameObject
+        line = GetComponent<LineRenderer>(); //assign the LineRenderer attatched to this GameObject
+        autoFill = GetComponent<AutoFillButtons>(); // assign the AutoFill script attatched to this GameObject
         
-        database = GameObject.FindGameObjectsWithTag("Medicine");
+        database = GameObject.FindGameObjectsWithTag("Medicine"); //find all objects with the tag "Medicine" in the scene
         
-        list = new string[database.Length];
+        list = new string[database.Length];  //create a string array with the names of the GameObject array of database
         for (int i = 0;i < database.Length; i++)
         {
             
 
-            list[i] = database[i].name;
+            list[i] = database[i].name; //add each GameObject.name to the strnig array
             
 
         }
         //Array.Sort(list);
         
-
+        //initialize the LineRederer values
         line.startWidth = .15f;
         line.endWidth = .15f;
         line.positionCount = 0;
@@ -73,9 +75,9 @@ public class Search : MonoBehaviour
     {
         if (currentItem != null )
         {
-            cam.transform.LookAt(currentItem.transform);
+            cam.transform.LookAt(currentItem.transform); //if there is a current item, look at it
         }
-        if(Vector3.Distance(agent.destination, transform.position) <= agent.stoppingDistance)
+        if(Vector3.Distance(agent.destination, transform.position) <= agent.stoppingDistance) //set the line to be invisible if it isn't that long (within stopping distance)
         {
             line.positionCount = 0;
             
@@ -83,11 +85,12 @@ public class Search : MonoBehaviour
         }
         else if (agent.hasPath)
         {
-            DrawPath();
+            DrawPath(); //Draw the line path
            
         }
     }
    
+    //Creates the list to be used by AutoFillButtons
     public void AutoFill()
     {
         int cap = 0;
@@ -102,14 +105,14 @@ public class Search : MonoBehaviour
             }
             
         }
-        autoFill.NukeEm();
-        autoFill.AddList(sublist);
-        sublist.Clear();
+        autoFill.NukeEm(); //clear the autofill buttons
+        autoFill.AddList(sublist); //create the autofill buttons 
+        sublist.Clear(); //clears the sublist for the AutoFills
     }
 
     public void EndEdit()
     {
-       
+       //if the string list contains the inputed text, find the item's associated GameObject
         if (list.Contains(input.text))
         {
             int v = Array.IndexOf(list, input.text);
@@ -121,6 +124,7 @@ public class Search : MonoBehaviour
         }
         else if (previousItem != null)
         {
+            //if the value is not in list, clear the previous query
             ClearLast(previousItem);
            
         }
@@ -134,12 +138,15 @@ public class Search : MonoBehaviour
 
     private void Locate(GameObject goal)
     {
-        
+        //Clear the last item, not particularly neccessary
         if (previousItem != null)
         {
             ClearLast(previousItem);
         }
         previousItem = goal;
+
+        //Set the material of the GameObject to appear through walls, set the Agent's Destination to that GameObject
+
         goal.GetComponent<MeshRenderer>().material = foundMaterial;
         currentItem = goal;
         goal.layer = 6;
@@ -149,6 +156,7 @@ public class Search : MonoBehaviour
        
     }
 
+    //Clear the Material of the last destination
     private void ClearLast(GameObject previous)
     {
         previous.GetComponent<MeshRenderer>().material = defaultMaterial;

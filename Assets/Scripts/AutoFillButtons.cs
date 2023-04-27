@@ -14,49 +14,38 @@ public class AutoFillButtons : MonoBehaviour
     private List<GameObject> buttons;
     
     public Transform canvas;
+    public GameObject buttonOrigin;
   
 
     // Start is called before the first frame update
     void Start()
     {
-     
       buttons= new List<GameObject>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    //Add each item that starts with the passed in inputs and create a button for them.
     public void AddList(List<string> sublist)
-    {
-        
+    {    
         for (int i = 0; i < sublist.Count; i++)
         {
-
-            button = Instantiate(buttonPref, canvas);
-            button.transform.Translate(0, -i*1.05f*button.GetComponent<RectTransform>().rect.height+25, 0);
-            button.transform.parent = canvas;
+            button = Instantiate(buttonPref, buttonOrigin.transform);
+            
+            //button.transform.Translate(0, -i*button.GetComponent<RectTransform>().rect.height, 0);
+            
+            button.transform.parent = buttonOrigin.transform;
             button.name = sublist[i];
             button.GetComponentInChildren<TMP_Text>().text = button.name;
             buttons.Add(button);
-        }
-       
-
+        } 
     }
-    public void NukeEm()
-    {
-        
-        for (int i = buttons.Count-1; i >=0; i--)
 
-          
-         {
-            
-            Destroy(buttons[i]);
-            
+    //Clear all buttons. Used whenever there is a change in the list.
+    public void NukeEm()
+    {  
+        for (int i = buttons.Count-1; i >=0; i--)        
+         {        
+            Destroy(buttons[i]);         
         }
         buttons.Clear();
-
-
-
     }
 }

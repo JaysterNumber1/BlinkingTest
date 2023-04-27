@@ -16,19 +16,19 @@ public class ExampleSceneManagerController : MonoBehaviour
 
     public void Save()
     {
-        QuickSaveWriter.Create("Information")
+        QuickSaveWriter.Create("Inputs")
                        .Write("Input1", Input1.text)
                        .Write("Input2", Input2.text)
                        .Write("Input3", Input3.text)
                        .Write("Input4", Input4.text)
                        .Commit();
 
-        Content.text = QuickSaveRaw.LoadString("Information.json");
+        Content.text = QuickSaveRaw.LoadString("Inputs.json");
     }
 
     public void Load()
     {
-        QuickSaveReader.Create("Information")
+        QuickSaveReader.Create("Inputs")
                        .Read<string>("Input1", (r) => { Input5.text = r; })
                        .Read<string>("Input2", (r) => { Input6.text = r; })
                        .Read<string>("Input3", (r) => { Input7.text = r; })

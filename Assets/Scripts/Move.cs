@@ -22,6 +22,7 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         if (Input.GetKey("a")){
             player.velocity = -cam.transform.right * speed;
         }
