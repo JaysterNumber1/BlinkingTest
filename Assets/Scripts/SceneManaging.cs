@@ -18,7 +18,7 @@ public class SceneManaging : MonoBehaviour
     {
         menu = "MainMenu";
         build = "BuildScene";
-        find = "FindScene";
+        find = "PathFindingScene";
     }
 
     //Close the Application
@@ -52,6 +52,13 @@ public class SceneManaging : MonoBehaviour
         SceneManager.LoadScene(menu);
         OnSceneLoad();
 
+    }
+
+    public void onReset()
+    {
+        DontDestroyOnLoad(this);
+        SceneManager.LoadScene(find);
+        OnSceneLoad();
     }
 
     //If a duplicate SceneManager is made, destroy
